@@ -3,15 +3,18 @@ import { encodeAbiParameters, isAddress, keccak256, type Hex } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
 import { creditcoinTestnet } from '@/lib/chains'
-import { consumeRun } from '@/app/api/game/run-registry'
+import { verifyRunAttestation } from '@/app/api/game/run-attestation'
 
 /**
  * Signs a crate-claim authorization for `PixelOrbitItem.claimCrates`.
  *
  * The client posts the run it just finished (player, server-issued run
- * nonce, client-reported crate count). The server checks the nonce was
- * issued to this player and never consumed, then signs the exact digest the
- * contract verifies: keccak256(abi.encode(item, chainId, player, nonce,
+ * nonce, client-reported crate count, plus the server attestation issued at
+ * run start). The server verifies the attestation signature instead of
+ * consulting shared storage, so any serverless instance holding
+ * `SCORE_SIGNER_KEY` can authorize the claim. Double-claims stay blocked
+ * on-chain by `PixelOrbitItem.usedRunNonces`. The claim signature covers the
+ * exact digest the contract verifies: keccak256(abi.encode(item, chainId, player, nonce,
  * count)) wrapped in the EIP-191 personal-sign envelope (viem `signMessage`
  * with a raw digest, mirroring the run-token route).
  *
@@ -40,14 +43,20 @@ export async function POST(request: Request) {
         )
     }
 
-    let body: { address?: unknown; runNonce?: unknown; crateCount?: unknown }
+    let body: {
+        address?: unknown
+        runNonce?: unknown
+        crateCount?: unknown
+        runAttestation?: unknown
+        issuedAt?: unknown
+    }
     try {
         body = await request.json()
     } catch {
         return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
     }
 
-    const { address, runNonce, crateCount } = body
+    const { address, runNonce, crateCount, runAttestation, issuedAt } = body
     if (typeof address !== 'string' || !isAddress(address)) {
         return NextResponse.json({ error: 'Valid wallet address required' }, { status: 400 })
     }
@@ -63,8 +72,7 @@ export async function POST(request: Request) {
             { status: 400 },
         )
     }
-
-    if (!consumeRun(runNonce, address)) {
+    if (typeof runAttestation !== 'string' || !Number.isInteger(issuedAt)) {
         return NextResponse.json(
             { error: 'Run nonce unknown, expired, already claimed, or issued to another wallet' },
             { status: 403 },
@@ -74,6 +82,25 @@ export async function POST(request: Request) {
     const account = privateKeyToAccount(
         (rawKey.startsWith('0x') ? rawKey : `0x${rawKey}`) as Hex,
     )
+
+    // Stateless check: the attestation proves this exact (player, nonce,
+    // issuance time) tuple was signed by this deployment. No shared storage,
+    // so any serverless instance can verify it. A second signature for the
+    // same nonce cannot double-mint: the contract rejects reused nonces.
+    const attested = await verifyRunAttestation({
+        chainId,
+        address,
+        runNonce,
+        runAttestation,
+        issuedAt: issuedAt as number,
+        expectedSignerAddress: account.address,
+    })
+    if (!attested) {
+        return NextResponse.json(
+            { error: 'Run nonce unknown, expired, already claimed, or issued to another wallet' },
+            { status: 403 },
+        )
+    }
 
     // Byte-identical to the contract's abi.encode(address, uint256, address,
     // bytes32, uint8): viem encodeAbiParameters IS abi.encode (not packed).

@@ -3,7 +3,7 @@ import { keccak256, encodePacked, isAddress, type Hex } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
 import { creditcoinTestnet } from '@/lib/chains'
-import { registerRun } from '@/app/api/game/run-registry'
+import { buildRunAttestationDigest } from '@/app/api/game/run-attestation'
 
 /**
  * Issues a run token for a game session — server attestation that this nonce
@@ -70,9 +70,12 @@ export async function POST(request: Request) {
     )
     const runToken = await account.signMessage({ message: { raw: tokenDigest } })
 
-    // Remember the issuance so `/api/game/open` can later bind a crate claim
-    // to this exact run (same nonce, same wallet, consumed once).
-    registerRun(runNonce, address, issuedAt)
+    // Stateless attestation for `/api/game/open`: any serverless instance
+    // holding SCORE_SIGNER_KEY can verify this without shared storage.
+    // Double-claims stay blocked on-chain by `usedRunNonces`.
+    const runAttestation = await account.signMessage({
+        message: { raw: buildRunAttestationDigest({ chainId, address, runNonce, issuedAt }) },
+    })
 
-    return NextResponse.json({ runNonce, runToken, issuedAt })
+    return NextResponse.json({ runNonce, runToken, runAttestation, issuedAt })
 }

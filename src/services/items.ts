@@ -7,7 +7,7 @@ import { decodeEventLog, parseAbi } from 'viem'
 import { config } from '@/lib/wagmi'
 import { ITEM_CONTRACT_ADDRESS, ITEM_ABI } from '@/lib/contracts'
 import { getWalletAddress, isCurrentWallet } from '@/services/wallet'
-import { peekRunNonce } from '@/services/leaderboard'
+import { peekRunAttestation, peekRunNonce } from '@/services/leaderboard'
 import { refreshWalletBalances } from '@/services/balances'
 import { getTxErrorMessage } from '@/services/errors'
 import { useGameStore } from '@/stores/game-store'
@@ -134,6 +134,11 @@ export async function openCrates(crateCount: number): Promise<number[] | null> {
         toast.error('No open run — start a fresh run to earn crates')
         return null
     }
+    const attestation = peekRunAttestation()
+    if (!attestation) {
+        toast.error('No open run — start a fresh run to earn crates')
+        return null
+    }
     if (ITEM_CONTRACT_ADDRESS === '0x') {
         toast.error('Item contract is not configured on this deployment')
         return null
@@ -145,7 +150,13 @@ export async function openCrates(crateCount: number): Promise<number[] | null> {
         const response = await fetch('/api/game/open', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ address, runNonce, crateCount }),
+            body: JSON.stringify({
+                address,
+                runNonce,
+                crateCount,
+                runAttestation: attestation.runAttestation,
+                issuedAt: attestation.issuedAt,
+            }),
         })
         if (!response.ok) {
             const failure = await response.json().catch(() => ({ error: 'Crate claim refused' }))

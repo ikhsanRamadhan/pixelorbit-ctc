@@ -21,6 +21,7 @@ import type { HighscoreMessage, ShipScoreView, UserStatsView } from '@/services/
 interface RunToken {
     runNonce: string
     runToken: string
+    runAttestation: string
     issuedAt: number
 }
 
@@ -55,6 +56,14 @@ export async function startRun(): Promise<boolean> {
         }
 
         const token: RunToken = await response.json()
+        if (
+            typeof token.runNonce !== 'string' ||
+            typeof token.runAttestation !== 'string' ||
+            !Number.isInteger(token.issuedAt)
+        ) {
+            toast.error('Run start failed — try again')
+            return false
+        }
         runTokens.set(address.toLowerCase(), token)
         return true
     } catch (error) {
@@ -73,6 +82,19 @@ export function peekRunNonce(): string | null {
     const address = getWalletAddress()
     if (!address) return null
     return runTokens.get(address.toLowerCase())?.runNonce ?? null
+}
+
+/**
+ * Server attestation for the open run, without consuming it. Sent to
+ * `/api/game/open` alongside the nonce so any serverless instance can verify
+ * the run was issued by this deployment. Null when no run is open.
+ */
+export function peekRunAttestation(): { runAttestation: string; issuedAt: number } | null {
+    const address = getWalletAddress()
+    if (!address) return null
+    const token = runTokens.get(address.toLowerCase())
+    if (!token || !token.runAttestation || !Number.isInteger(token.issuedAt)) return null
+    return { runAttestation: token.runAttestation, issuedAt: token.issuedAt }
 }
 
 /**
