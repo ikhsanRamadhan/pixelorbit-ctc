@@ -262,7 +262,7 @@ assumption is worth.
 | Project Description | Bridge-to-play arcade economy on Creditcoin: Stars only arrive via proven Sepolia locks, and everything in the game spends Stars. |
 | Attestcoin Protocol Integration Summary | Sepolia `lock` burn → offchain worker waits/proves via `0xFD3` + prover → CC3 ASC verifies via `0xFD2` and mints Stars. See [Attestcoin Protocol Integration Summary](#-attestcoin-protocol-integration-summary). |
 | GitHub Repository URL | `https://github.com/ikhsanRamadhan/pixelorbit-ctc` |
-| Project Deck or Whitepaper | TODO UPDATE |
+| Project Deck or Whitepaper | [https://drive.google.com/file/d/1z1Hx6--gvoaq0neni8O2qZj_-B57DDle/view?usp=sharing](https://drive.google.com/file/d/1z1Hx6--gvoaq0neni8O2qZj_-B57DDle/view?usp=sharing) |
 | Prototype Demo Video URL | [https://www.youtube.com/watch?v=w5bCRJyFVvU](https://www.youtube.com/watch?v=w5bCRJyFVvU) |
 | Team Size | 1 |
 
@@ -280,7 +280,7 @@ This project is submitted for **BUIDL CTC 2026 Fall, Gaming track**.
 | Player-driven marketplaces | Fixed-price listings + transparent ascending auctions in Stars |
 | Dual Stars sale doors | `contracts/attestcoin/StarsSale.sol` (Sepolia ETH) + `StarsSaleCC3.sol` (CC3 two-way door: open `buy`, instant `sellStars` sell-back at 8 tCTC, FIFO `depositStars` consignment with pull `withdrawProceeds`) — inventory-only, nominal testnet prices, no mint rights; `src/services/sale.ts` + `BuyStarsPanels.tsx` in the Bridge modal |
 | Prototype demo video | [https://www.youtube.com/watch?v=w5bCRJyFVvU](https://www.youtube.com/watch?v=w5bCRJyFVvU) |
-| Project deck / whitepaper | TODO UPDATE |
+| Project deck / whitepaper | [https://drive.google.com/file/d/1z1Hx6--gvoaq0neni8O2qZj_-B57DDle/view?usp=sharing](https://drive.google.com/file/d/1z1Hx6--gvoaq0neni8O2qZj_-B57DDle/view?usp=sharing) |
 
 ### Attestcoin depth evidence (summary)
 
@@ -511,7 +511,7 @@ pixelorbit/
 - **Repository**: [https://github.com/ikhsanRamadhan/pixelorbit-ctc](https://github.com/ikhsanRamadhan/pixelorbit-ctc)
 - **Live demo (Creditcoin CC3)**: pending deploy — see DEPLOY-STATUS above
 - **Project logo**: [public/logo.svg](public/logo.svg)
-- **Project deck**: `docs/PixelOrbit-Deck.pdf` (local only; source: `deck/pixelorbit-deck.html`)
+- **Project deck**: [https://drive.google.com/file/d/1z1Hx6--gvoaq0neni8O2qZj_-B57DDle/view?usp=sharing](https://drive.google.com/file/d/1z1Hx6--gvoaq0neni8O2qZj_-B57DDle/view?usp=sharing)
 - **Demo video**: [https://www.youtube.com/watch?v=w5bCRJyFVvU](https://www.youtube.com/watch?v=w5bCRJyFVvU)
 
 **Creditcoin**
