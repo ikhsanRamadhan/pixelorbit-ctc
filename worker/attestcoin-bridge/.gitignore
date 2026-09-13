@@ -1,0 +1,8 @@
+node_modules/
+.env
+dist/
+*.log
+bridge-state.json
+bridge-state.json.corrupt.*
+*.corrupt.*
+bridge-state.lock

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-label="PixelOrbit logo">
+  <defs>
+    <linearGradient id="wordmark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8DEBFF"/>
+      <stop offset="0.5" stop-color="#BD00FF"/>
+      <stop offset="1" stop-color="#0047FF"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.55">
+      <stop offset="0" stop-color="#22D3EE" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="360" rx="28" fill="#050816"/>
+  <rect width="1200" height="360" rx="28" fill="url(#glow)"/>
+  <text x="600" y="188" text-anchor="middle" font-family="Orbitron, 'Arial Black', Verdana, sans-serif" font-weight="900" font-style="italic" font-size="112" letter-spacing="-2" fill="url(#wordmark)">PIXELORBIT</text>
+  <text x="600" y="258" text-anchor="middle" font-family="Verdana, Arial, sans-serif" font-weight="bold" font-size="30" letter-spacing="12" fill="#67E8F6">WEB3 SPACE SHOOTER • POWERED BY CREDITCOIN</text>
+</svg>
