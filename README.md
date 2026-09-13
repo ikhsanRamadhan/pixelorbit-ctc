@@ -263,7 +263,7 @@ assumption is worth.
 | Attestcoin Protocol Integration Summary | Sepolia `lock` burn → offchain worker waits/proves via `0xFD3` + prover → CC3 ASC verifies via `0xFD2` and mints Stars. See [Attestcoin Protocol Integration Summary](#-attestcoin-protocol-integration-summary). |
 | GitHub Repository URL | `https://github.com/ikhsanRamadhan/pixelorbit-ctc` |
 | Project Deck or Whitepaper | TODO UPDATE |
-| Prototype Demo Video URL | TODO — record after live deploy per `docs/DEMO-SCRIPT.md` |
+| Prototype Demo Video URL | [https://www.youtube.com/watch?v=w5bCRJyFVvU](https://www.youtube.com/watch?v=w5bCRJyFVvU) |
 | Team Size | 1 |
 
 ## 📋 Bounty Submission Mapping
@@ -279,7 +279,7 @@ This project is submitted for **BUIDL CTC 2026 Fall, Gaming track**.
 | Asset ownership | ERC-721 ships + items, escrowed marketplace custody |
 | Player-driven marketplaces | Fixed-price listings + transparent ascending auctions in Stars |
 | Dual Stars sale doors | `contracts/attestcoin/StarsSale.sol` (Sepolia ETH) + `StarsSaleCC3.sol` (CC3 two-way door: open `buy`, instant `sellStars` sell-back at 8 tCTC, FIFO `depositStars` consignment with pull `withdrawProceeds`) — inventory-only, nominal testnet prices, no mint rights; `src/services/sale.ts` + `BuyStarsPanels.tsx` in the Bridge modal |
-| Prototype demo video | TODO UPDATE |
+| Prototype demo video | [https://www.youtube.com/watch?v=w5bCRJyFVvU](https://www.youtube.com/watch?v=w5bCRJyFVvU) |
 | Project deck / whitepaper | TODO UPDATE |
 
 ### Attestcoin depth evidence (summary)
@@ -302,10 +302,10 @@ doors, Hardhat/node-tested).
 | Field | Value |
 |---|---|
 | First & Last Name | MUHAMMAD IKHSAN RAMADHAN |
-| Email | IKHSANDADAN@GMAIL.com |
+| Email | ikhsandadan@gmail.com |
 | Telegram ID | @ikhsanashki |
-| X / Twitter | @Ikhsan_dadan |
-| LinkedIn | [https://www.linkedin.com/in/muhammad-ikhsan-ramadhan-823004232/](MuhammadIkhsanRamadhan) |
+| X / Twitter | [@Ikhsan_dadan](https://x.com/Ikhsan_dadan) |
+| LinkedIn | [MuhammadIkhsanRamadhan](https://www.linkedin.com/in/muhammad-ikhsan-ramadhan-823004232/) |
 | Short Bio | Solo builder, bridge-to-play arcade economy on Creditcoin |
 | Role within the team | Developer |
 | Country of Residence | INDONESIA |
@@ -512,7 +512,7 @@ pixelorbit/
 - **Live demo (Creditcoin CC3)**: pending deploy — see DEPLOY-STATUS above
 - **Project logo**: [public/logo.svg](public/logo.svg)
 - **Project deck**: `docs/PixelOrbit-Deck.pdf` (local only; source: `deck/pixelorbit-deck.html`)
-- **Demo video**: TODO — record after live deploy per `docs/DEMO-SCRIPT.md` (local only)
+- **Demo video**: [https://www.youtube.com/watch?v=w5bCRJyFVvU](https://www.youtube.com/watch?v=w5bCRJyFVvU)
 
 **Creditcoin**
 
