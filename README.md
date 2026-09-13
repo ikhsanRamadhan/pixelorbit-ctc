@@ -1,4 +1,4 @@
-<img width="1912" height="907" alt="Home" src="https://github.com/user-attachments/assets/ca49fc2b-2f80-4f22-9e3e-39b1e8629f14" />
+<img width="1912" height="943" alt="1" src="https://github.com/user-attachments/assets/ec40bf44-6edd-4d73-be9d-d32ddb419550" />
 
 
 # 🚀 PixelOrbit
